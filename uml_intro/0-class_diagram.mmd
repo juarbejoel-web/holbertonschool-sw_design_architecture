@@ -1,1 +1,34 @@
-0-class_diagram.mmd
+classDiagram
+    class Library {
+        +books: list
+        +users: list
+        +loans: list
+        +add_book(book: Book) None
+        +register_user(user: User) None
+        +create_loan(user: User, book: Book) Loan
+    }
+
+    class Book {
+        +title: str
+        +author: str
+        +available: bool
+        +mark_as_unavailable() None
+        +mark_as_available() None
+    }
+
+    class User {
+        +name: str
+        +email: str
+    }
+
+    class Loan {
+        +start_date: date
+        +end_date: date
+        +close_loan() None
+    }
+
+    Library "1" o-- "0..*" Book : manages
+    Library "1" o-- "0..*" User : registers
+    Library "1" --> "0..*" Loan : creates
+    Loan "0..*" --> "1" Book : references
+    Loan "0..*" --> "1" User : references
